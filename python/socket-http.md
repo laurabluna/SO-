@@ -232,6 +232,14 @@ fazer_requisicao_get()
     - Usamos `conexao.close()` para fechar a conexão.
 
 
+## RESPOSTA DO EXPERIMENTO 1
+para fins da minha atividade, criei um arquivo varios_clientes.py para mostrar no terminal de uma forma dinâmica vários clientes se conectando ao mesmo tempo
+# SEM THREAD
+é ruim! porque ele só consegue atender 1 cliente por vez. o segundo cliente só vai ser atendido quando o primeiro cliente terminar.
+
+# COM THREAD
+consegue atender vários clientes ao mesmo tempo, e não 1 por vez. 
+
 ### 3. Experimento 2
 
 
