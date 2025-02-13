@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  servidor:
+    build: .
+    container_name: servidor
+    command: ["python", "servidor.py"]
+    ports:
+      - "8000:8000"
+
+  cliente_1:
+    build: .
+    depends_on:
+      - servidor
+    command: ["python", "varios_clientes.py", "1"]
+
+  cliente_2:
+    build: .
+    depends_on:
+      - servidor
+    command: ["python", "varios_clientes.py", "2"]
+
+  cliente_5:
+    build: .
+    depends_on:
+      - servidor
+    command: ["python", "varios_clientes.py", "5"]
+
+  cliente_10:
+    build: .
+    depends_on:
+      - servidor
+    command: ["python", "varios_clientes.py", "10"]
