@@ -305,9 +305,67 @@ Escolha uma das formas de implementação em python para o código-fonte 7 e out
 Lembrando as formas: Threads, Pool, ou asyncio.
 
 ### Código-fonte 7: Soma com 4 tarefas
+from concurrent.futures import ThreadPoolExecutor
+
+# 1. função para transferir números do arquivo para uma lista
+def ler_numeros_do_arquivo(nome_arquivo):
+    with open(nome_arquivo, 'r') as arquivo:
+        numeros = [int(linha.strip()) for linha in arquivo]
+    return numeros
+
+# 2. função para somar números de uma lista
+def soma_numeros(numeros):
+    return sum(numeros)
+
+# 3. chama a função para transferir números para lista
+nome_arquivo = 'numeros_aleatorios.txt'
+numeros = ler_numeros_do_arquivo(nome_arquivo)
+
+# 4. divide a lista em 4 partes
+metade = len(numeros) // 2
+numeros_parte_1 = numeros[:metade//2]
+numeros_parte_2 = numeros[metade//2:metade]
+numeros_parte_3 = numeros[metade:3*metade//2]
+numeros_parte_4 = numeros[3*metade//2:]
+
+# Usar ThreadPoolExecutor para gerenciar threads
+with ThreadPoolExecutor(max_workers=4) as executor:
+    # 5. cria 4 tarefas, cada uma com uma parte da lista de números
+    futuro1 = executor.submit(soma_numeros, numeros_parte_1)
+    futuro2 = executor.submit(soma_numeros, numeros_parte_2)
+    futuro3 = executor.submit(soma_numeros, numeros_parte_3)
+    futuro4 = executor.submit(soma_numeros, numeros_parte_4)
+    resultados = [futuro1.result(), futuro2.result(), futuro3.result(), futuro4.result()]
+
+# 7. soma o resultado final e imprime
+resultado_total = sum(resultados)
+print(f"A soma total dos números é: {resultado_total}")
 
 
 ### Código-fonte 8: Soma com 10 tarefas
+import asyncio
+
+# 1. função para transferir números do arquivo para uma lista
+async def soma_numeros(numeros):
+    return sum(numeros)
+
+# Função principal assíncrona
+async def main():
+    # Função para ler números de um arquivo texto e transferir para uma lista
+    def ler_numeros_do_arquivo(nome_arquivo):
+        with open(nome_arquivo, 'r') as arquivo:
+            numeros = [int(linha.strip()) for linha in arquivo]
+        return numeros
+    nome_arquivo = 'numeros_aleatorios.txt'
+    numeros = ler_numeros_do_arquivo(nome_arquivo)
+    partes = [numeros[i:i + len(numeros)//10] for i in range(0, len(numeros), len(numeros)//10)]
+    tarefas = [soma_numeros(parte) for parte in partes]
+    resultados = await asyncio.gather(*tarefas)
+    soma_total = sum(resultados)
+    print(f"Soma total dos números: {soma_total}")
+
+# Executa o loop de eventos
+asyncio.run(main())
 
 
 # Links importantes
