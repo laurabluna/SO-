@@ -21,8 +21,8 @@
 
 ### Aluno
 
-- nome: 
-- matrícula: 
+- nome: Laura Beatriz Luna Maia
+- matrícula: 20232014040018
 
 ### Relato
 
