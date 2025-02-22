@@ -25,7 +25,10 @@
 - matrícula: 20232014040018
 
 ### Relato
+foi aplicado ao PDS algumas técnicas de Docker
+arquivos:
+- DockerFile
+- docker-compose.yml
 
-### Arquivos docker e de configuração do django
 
 **observação** coloque nomes nos arquivos antes do códigos-fonte.
