@@ -1,0 +1,19 @@
+# Dockerfile
+
+# Usa uma imagem base do Python
+FROM python:3.9-slim
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copia o arquivo requirements.txt para o diretório de trabalho
+COPY requirements.txt .
+
+# Instala as dependências definidas no requirements.txt
+RUN pip install -r requirements.txt
+
+# Copia todo o conteúdo do diretório atual para o diretório de trabalho no container
+COPY . .
+
+# Comando a ser executado ao iniciar o container
+CMD ["python", "run.py"]
